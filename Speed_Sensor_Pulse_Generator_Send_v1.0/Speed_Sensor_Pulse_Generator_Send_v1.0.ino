@@ -2,15 +2,15 @@
 - Arduino Program to act as a Pulse Generator for Speed (RPM) Program
 - Version 1.0
 - Modified by Jerico Magtaan
-- Last Edited on 26/04/20
+- Last Edited on 29/04/20
 *******************************************************************************/
 /*
  * The purpose of this code is to send pulses to the Speed Sensor code to
  * measure RPM. This code will be used to test if the Speed Sensor code is
  * working and is able to detect pulses and calculate the RPM.
  
- * Speed sensor and Arduino will be connected as follows:
-- Pin D4 of Pulse Generating Arduino to input Pin D3 of the Measuring Arduino
+ * Pulse Generating Arduino and Receiving Arduino connections as follows:
+- Pin D4 of Pulse Generating Arduino to input Pin D3 of the Receiving Arduino
 - 4.7kOhm protective resistor between digital pin connection of both Arduinos
 - GND pin of both Arduinos to common ground
 *******************************************************************************/
@@ -49,6 +49,9 @@ void loop()
 {
 
   // State change to alternate between low and high at digital pin 4 to simulate a square-wave pulse output:
+  // For this part, the delay at the end determines the duration of pulses for both Low and High voltage levels.
+  // It takes two runs of this loop to cover one pulse cycle where 1st loop sets pin low then 2nd loop sets pin high.
+  // A square-wave pulse will be continuously produced with a specified pulse cycle length using the "delay" function.
   while(1)
   {
     if(State == 0)
@@ -64,8 +67,8 @@ void loop()
     }
     
     delay(30);    // Delay is used to set the pulse duration per cycle.
-                  // Since we are using this code for the Speed Sensor code, we adjust the delay to
-                  // change the duration of period between pulses since it dictates how fast the pin alternates between Low and high,
+                  // Since we are using this code for the Speed Sensor code, we adjust the delay to change the duration
+                  // of the period between pulses since it dictates how fast the pin alternates between Low and high,
                   // where shorter delay would simulate shorter pulse duration, meaning faster RPM,
                   // whereas longer delay would simulate longer pulse duration, meaning slower RPM.                                      
   }
